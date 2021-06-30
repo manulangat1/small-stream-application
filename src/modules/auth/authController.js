@@ -27,9 +27,9 @@ class AuthController {
             const hashedPassword = await bcrypt.hash(req.body.password, saltRounds).then((hash) => hash);
             const imageLink = await UploadAWS.uploadFileFn(req.file);
             console.log(imageLink.Location)
-            const result = await models.User.create({firstName: req.body.name, lastName: req.body.lastname, email: req.body.email, password: hashedPassword, token});
+            const result = await models.User.create({firstName: req.body.name, lastName: req.body.lastname, email: req.body.email, image: imageLink.Location, password: hashedPassword, token});
             
-            SendGridHelper.sendConfirmationMail(token, req.body.email);
+            // SendGridHelper.sendConfirmationMail(token, req.body.email);
 
             return res.status(201).json({
                 success: true,
