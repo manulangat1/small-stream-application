@@ -5,10 +5,12 @@ import { v4 as uuidv4 } from 'uuid';
 import SendGridHelper from './../../helpers/sendGridHandler';
 import errorHandler from './../../helpers/errorHandler';
 import models from './../../database/models';
-
+import uploadAws from '../../helpers/s3'
+import UploadAWS from '../../helpers/s3';
 class AuthController {
     static async createUser(req, res) {
         try {
+            
             const saltRounds = 10;
 
             //check if user already exists
@@ -23,7 +25,8 @@ class AuthController {
             }
             const token = uuidv4();
             const hashedPassword = await bcrypt.hash(req.body.password, saltRounds).then((hash) => hash);
-
+            const imageLink = await UploadAWS.uploadFileFn(req.file);
+            console.log(imageLink.Location)
             const result = await models.User.create({firstName: req.body.name, lastName: req.body.lastname, email: req.body.email, password: hashedPassword, token});
             
             SendGridHelper.sendConfirmationMail(token, req.body.email);

@@ -1,11 +1,14 @@
 import express from 'express';
 
 import AuthController from './authController';
+import multer from 'multer'
 
+const upload = multer({dest:'uploads/'})
 const Router = express.Router();
 
 Router.post(
     '/register',
+    upload.single('image'),
     AuthController.createUser
 );
 

@@ -1,9 +1,10 @@
+"use strict";
 
-const dbConfig = {
+var dbConfig = {
   development: {
     username: "",
-    password: "3050manu",
-    database: "small_d",
+    password: null,
+    database: "phidi_db",
     host: "127.0.0.1",
     dialect: "postgres",
     operatorsAliases: false
@@ -21,6 +22,5 @@ const dbConfig = {
     dialect: "postgres",
     operatorsAliases: false
   }
-}
-
+};
 module.exports = dbConfig;
