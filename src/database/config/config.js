@@ -1,11 +1,19 @@
 
 const dbConfig = {
   development: {
-    username: "",
-    password: "3050manu",
-    database: "small_d",
-    host: "127.0.0.1",
-    dialect: "postgres"
+    use_env_variable: "DATABASE_URL",
+    dialect: "postgres",
+    dialectOptions: {
+			ssl: {
+				require: false,
+				rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
+			},
+		},
+    // username: "",
+    // password: "3050manu",
+    // database: "small_d",
+    // host: "127.0.0.1",
+    // dialect: "postgres"
     
   },
   test: {
@@ -17,7 +25,13 @@ const dbConfig = {
   },
   production: {
     use_env_variable: "DATABASE_URL",
-    dialect: "postgres"
+    dialect: "postgres",
+    dialectOptions: {
+			ssl: {
+				require: false,
+				rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
+			},
+		},
     
   }
 }
