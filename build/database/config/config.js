@@ -3,8 +3,8 @@
 var dbConfig = {
   development: {
     username: "",
-    password: null,
-    database: "phidi_db",
+    password: "3050manu",
+    database: "small_d",
     host: "127.0.0.1",
     dialect: "postgres",
     operatorsAliases: false

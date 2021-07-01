@@ -27,6 +27,8 @@ var _errorHandler = _interopRequireDefault(require("./../../helpers/errorHandler
 
 var _models = _interopRequireDefault(require("./../../database/models"));
 
+var _s = _interopRequireDefault(require("../../helpers/s3"));
+
 var AuthController = /*#__PURE__*/function () {
   function AuthController() {
     (0, _classCallCheck2["default"])(this, AuthController);
@@ -36,7 +38,7 @@ var AuthController = /*#__PURE__*/function () {
     key: "createUser",
     value: function () {
       var _createUser = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res) {
-        var saltRounds, userExists, token, hashedPassword, result;
+        var saltRounds, userExists, token, hashedPassword, imageLink, result;
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -74,37 +76,41 @@ var AuthController = /*#__PURE__*/function () {
               case 10:
                 hashedPassword = _context.sent;
                 _context.next = 13;
+                return _s["default"].uploadFileFn(req.file);
+
+              case 13:
+                imageLink = _context.sent;
+                console.log(imageLink.Location);
+                _context.next = 17;
                 return _models["default"].User.create({
                   firstName: req.body.name,
                   lastName: req.body.lastname,
                   email: req.body.email,
+                  image: imageLink.Location,
                   password: hashedPassword,
                   token: token
                 });
 
-              case 13:
+              case 17:
                 result = _context.sent;
-
-                _sendGridHandler["default"].sendConfirmationMail(token, req.body.email);
-
                 return _context.abrupt("return", res.status(201).json({
                   success: true,
                   message: 'User registered successfully.Confirmation email sent to your email address.Confirm and then log in.',
                   user: result
                 }));
 
-              case 18:
-                _context.prev = 18;
+              case 21:
+                _context.prev = 21;
                 _context.t0 = _context["catch"](0);
 
                 _errorHandler["default"].handleError(_context.t0, 500, res);
 
-              case 21:
+              case 24:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 18]]);
+        }, _callee, null, [[0, 21]]);
       }));
 
       function createUser(_x, _x2) {

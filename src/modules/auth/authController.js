@@ -80,7 +80,7 @@ class AuthController {
                 return res.status(403).json({
                     success: false,
                     message: 'No user exists with such email.',
-                  });
+                });
             }
 
 

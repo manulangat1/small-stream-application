@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
 (0, _modules["default"])(app);
 app.use('*', function (req, res) {
   res.status(404).send({
-    message: "Url not found"
+    message: 'Url not found'
   });
 });
 app.listen(port, function () {

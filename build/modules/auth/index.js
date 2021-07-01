@@ -11,9 +11,15 @@ var _express = _interopRequireDefault(require("express"));
 
 var _authController = _interopRequireDefault(require("./authController"));
 
+var _multer = _interopRequireDefault(require("multer"));
+
+var upload = (0, _multer["default"])({
+  dest: 'uploads/'
+});
+
 var Router = _express["default"].Router();
 
-Router.post('/register', _authController["default"].createUser);
+Router.post('/register', upload.single('image'), _authController["default"].createUser);
 Router.post('/login', _authController["default"].loginUser);
 Router.post('/confirm-email', _authController["default"].confirmEmail);
 Router.post('/forgot-password', _authController["default"].forgotPassword);
