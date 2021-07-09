@@ -8,7 +8,8 @@ const accessKeyId = process.env.AWS_ACCESS_KEY
 const s3 = new  S3({
     region,
     secretKeyId,
-    accessKeyId
+    accessKeyId,
+    acl: 'public-read'
 })
 
 class UploadAWS {
@@ -18,7 +19,8 @@ class UploadAWS {
         const uploadParams = {
             Bucket:bucketName,
             Body: fileStream,
-            Key: file.filename
+            Key: file.filename,
+            acl: 'public-read',
         }
         return s3.upload(uploadParams).promise()
     }

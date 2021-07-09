@@ -2,6 +2,11 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
@@ -9,6 +14,14 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+
+var _models = require("../database/models");
+
+var _subscriptions = _interopRequireDefault(require("../database/models/subscriptions"));
+
+var _responseHandler = _interopRequireDefault(require("../helpers/responseHandler"));
 
 var isAuth = /*#__PURE__*/function () {
   function isAuth() {
@@ -33,12 +46,12 @@ var isAuth = /*#__PURE__*/function () {
 
                 token = token.slice(7, token.length);
                 _context.next = 5;
-                return jwt.verify(token, 'secret').email;
+                return _jsonwebtoken["default"].verify(token, 'secret').email;
 
               case 5:
                 email = _context.sent;
                 _context.next = 8;
-                return models.User.findOne({
+                return _models.User.findOne({
                   where: {
                     email: email
                   }
@@ -87,6 +100,66 @@ var isAuth = /*#__PURE__*/function () {
 
       return isAuthenticated;
     }()
+  }, {
+    key: "isSubscribed",
+    value: function () {
+      var _isSubscribed = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res, next) {
+        var userSubscription;
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _subscriptions["default"].findOne({
+                  where: {
+                    userId: req.user.id
+                  }
+                });
+
+              case 2:
+                userSubscription = _context2.sent;
+
+                if (!userSubscription) {
+                  _context2.next = 11;
+                  break;
+                }
+
+                if (!userSubscription.isActive) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                next();
+                _context2.next = 9;
+                break;
+
+              case 8:
+                return _context2.abrupt("return", (0, _responseHandler["default"])(res, "Create a subscription to get going", 403, "Create a subscription to get going"));
+
+              case 9:
+                _context2.next = 12;
+                break;
+
+              case 11:
+                return _context2.abrupt("return", (0, _responseHandler["default"])(res, "Subscription not found", 403, "Subscription not found"));
+
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function isSubscribed(_x4, _x5, _x6) {
+        return _isSubscribed.apply(this, arguments);
+      }
+
+      return isSubscribed;
+    }()
   }]);
   return isAuth;
 }();
+
+var _default = isAuth;
+exports["default"] = _default;

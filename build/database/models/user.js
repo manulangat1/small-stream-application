@@ -15,7 +15,14 @@ module.exports = function (sequelize, DataTypes) {
     image: DataTypes.STRING
   }, {});
 
-  User.associate = function (models) {// associations can be defined here
+  User.associate = function (models) {
+    // associations can be defined here
+    User.hasMany(models.Subscriptions, {
+      foreignKey: 'userId'
+    });
+    User.hasMany(models.OrderItem, {
+      foreignKey: 'userId'
+    });
   };
 
   return User;

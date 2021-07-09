@@ -13,6 +13,8 @@ var _bodyParser = _interopRequireDefault(require("body-parser"));
 
 var _cors = _interopRequireDefault(require("cors"));
 
+var _morgan = _interopRequireDefault(require("morgan"));
+
 var _modules = _interopRequireDefault(require("./modules"));
 
 require('dotenv').config();
@@ -24,6 +26,7 @@ app.use(_bodyParser["default"].urlencoded({
   extended: false
 }));
 app.use((0, _cors["default"])());
+app.use((0, _morgan["default"])('combined'));
 app.get('/', function (req, res) {
   res.send('Hello world, I am the Phidi API');
 });

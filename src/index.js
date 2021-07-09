@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import morgan from 'morgan';
 
 import modules from './modules';
 
@@ -14,7 +15,7 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cors());
-
+app.use(morgan('combined'))
 app.get('/', function (req, res) {
     res.send('Hello world, I am the Phidi API');
   });

@@ -26,7 +26,8 @@ var accessKeyId = process.env.AWS_ACCESS_KEY;
 var s3 = new _s["default"]({
   region: region,
   secretKeyId: secretKeyId,
-  accessKeyId: accessKeyId
+  accessKeyId: accessKeyId,
+  acl: 'public-read'
 });
 
 var UploadAWS = /*#__PURE__*/function () {
@@ -36,8 +37,8 @@ var UploadAWS = /*#__PURE__*/function () {
 
   (0, _createClass2["default"])(UploadAWS, null, [{
     key: "uploadFileFn",
-    //uploads to s3 
-    value: function () {
+    value: //uploads to s3 
+    function () {
       var _uploadFileFn = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(file) {
         var fileStream, uploadParams;
         return _regenerator["default"].wrap(function _callee$(_context) {
@@ -48,7 +49,8 @@ var UploadAWS = /*#__PURE__*/function () {
                 uploadParams = {
                   Bucket: bucketName,
                   Body: fileStream,
-                  Key: file.filename
+                  Key: file.filename,
+                  acl: 'public-read'
                 };
                 return _context.abrupt("return", s3.upload(uploadParams).promise());
 

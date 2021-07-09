@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) =>
     User.hasMany(models.Subscriptions,{
       foreignKey:'userId'
     })
+    User.hasMany(models.OrderItem,{
+      foreignKey:'userId'
+    })
   };
   return User;
 };
