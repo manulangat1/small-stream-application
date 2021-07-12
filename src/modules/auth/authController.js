@@ -38,7 +38,8 @@ class AuthController {
             })
             
         } catch (error) {
-            errorHandler.handleError(error, 500, res);
+            console.log(error.message)
+            return errorHandler.handleError(error.message, 500, res);
         }
     }
 
