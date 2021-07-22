@@ -15,6 +15,7 @@ const s3 = new  S3({
 class UploadAWS {
     //uploads to s3 
     static async  uploadFileFn(file){
+        console.log(s3)
         const fileStream = fs.createReadStream(file.path);
         const uploadParams = {
             Bucket:bucketName,
@@ -26,6 +27,7 @@ class UploadAWS {
     }
     //downloads from s3 
     static async  getFileFn(fileKey){
+        console.log(s3)
         const fileStream = fs.createReadStream(file.path);
         const downloadParams = {
             Bucket:bucketName,
