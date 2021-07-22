@@ -1,20 +1,20 @@
+"use strict";
 
-const dbConfig = {
+var dbConfig = {
   development: {
     // use_env_variable: "DATABASE_URL",
     // dialect: "postgres",
     // dialectOptions: {
-		// 	ssl: {
-		// 		require: false,
-		// 		rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
-		// 	},
-		// },
+    // 	ssl: {
+    // 		require: false,
+    // 		rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
+    // 	},
+    // },
     username: "",
     password: "3050manu",
     database: "small_d",
     host: "127.0.0.1",
     dialect: "postgres"
-    
   },
   test: {
     username: "root",
@@ -27,13 +27,12 @@ const dbConfig = {
     use_env_variable: "DATABASE_URL",
     dialect: "postgres",
     dialectOptions: {
-			ssl: {
-				require: false,
-				rejectUnauthorized: false, // <<<<<<< YOU NEED THIS
-			},
-		},
-    
-  }
-}
+      ssl: {
+        require: false,
+        rejectUnauthorized: false // <<<<<<< YOU NEED THIS
 
+      }
+    }
+  }
+};
 module.exports = dbConfig;
