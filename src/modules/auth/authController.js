@@ -46,7 +46,6 @@ class AuthController {
     static async loginUser(req, res) {
         try {
             const {email, password} = req.body;
-
             //check if user already exists
             const userExists = await models.User.findOne({
                 where: {email: email},
@@ -59,11 +58,14 @@ class AuthController {
                         const token = jwt.sign({
                         email,
                         }, 'secret', { expiresIn: '2h' });
-
+                        data = {
+                            user:userExists.dataValues,
+                            token
+                        }
                         return res.status(200).json({
                         success: true,
                         message: 'Logged in successfully.',
-                        token,
+                        data,
                         });
                     }
                     return res.status(403).json({
