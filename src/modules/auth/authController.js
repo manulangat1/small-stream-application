@@ -58,7 +58,7 @@ class AuthController {
                         const token = jwt.sign({
                         email,
                         }, 'secret', { expiresIn: '2h' });
-                        data = {
+                        const data = {
                             user:userExists.dataValues,
                             token
                         }
